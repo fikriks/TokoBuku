@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7ace1241-887b-48a9-be64-9eb5888ff253">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="parameter1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="parameter1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     MONTHNAME(tanggal) AS tgl,
+     buku.`id` AS buku_id,
+     buku.`gambar` AS buku_gambar,
+     buku.`judul` AS buku_judul,
+     buku.`noisbn` AS buku_noisbn,
+     buku.`penulis` AS buku_penulis,
+     buku.`penerbit` AS buku_penerbit,
+     buku.`tahun` AS buku_tahun,
+     buku.`stok` AS buku_stok,
+     buku.`harga_pokok` AS buku_harga_pokok,
+     buku.`harga_jual` AS buku_harga_jual,
+     buku.`ppn` AS buku_ppn,
+     buku.`diskon` AS buku_diskon,
+     penjualan.`id` AS penjualan_id,
+     penjualan.`nota` AS penjualan_nota,
+     penjualan.`id_kasir` AS penjualan_id_kasir,
+     penjualan.`tanggal` AS penjualan_tanggal,
+     penjualan_detail.`id` AS penjualan_detail_id,
+     penjualan_detail.`id_penjualan` AS penjualan_detail_id_penjualan,
+     penjualan_detail.`id_buku` AS penjualan_detail_id_buku,
+     penjualan_detail.`qty` AS penjualan_detail_qty
+FROM
+     `penjualan` penjualan INNER JOIN `penjualan_detail` penjualan_detail ON penjualan.`id` = penjualan_detail.`id_penjualan`,
+     `buku` buku
+WHERE
+MONTH(tanggal)=2 AND YEAR(tanggal)=YEAR(CURDATE()) AND penjualan.id=penjualan_detail.id_penjualan AND buku.id=id_buku]]>
+	</queryString>
+	<field name="tgl" class="java.lang.String"/>
+	<field name="buku_id" class="java.lang.Integer"/>
+	<field name="buku_gambar" class="java.lang.String"/>
+	<field name="buku_judul" class="java.lang.String"/>
+	<field name="buku_noisbn" class="java.lang.String"/>
+	<field name="buku_penulis" class="java.lang.String"/>
+	<field name="buku_penerbit" class="java.lang.String"/>
+	<field name="buku_tahun" class="java.sql.Date"/>
+	<field name="buku_stok" class="java.lang.Integer"/>
+	<field name="buku_harga_pokok" class="java.lang.Integer"/>
+	<field name="buku_harga_jual" class="java.lang.Integer"/>
+	<field name="buku_ppn" class="java.lang.Integer"/>
+	<field name="buku_diskon" class="java.lang.Integer"/>
+	<field name="penjualan_id" class="java.lang.Integer"/>
+	<field name="penjualan_nota" class="java.lang.String"/>
+	<field name="penjualan_id_kasir" class="java.lang.Integer"/>
+	<field name="penjualan_tanggal" class="java.sql.Date"/>
+	<field name="penjualan_detail_id" class="java.lang.Integer"/>
+	<field name="penjualan_detail_id_penjualan" class="java.lang.Integer"/>
+	<field name="penjualan_detail_id_buku" class="java.lang.Integer"/>
+	<field name="penjualan_detail_qty" class="java.lang.Integer"/>
+	<variable name="tot" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{buku_harga_jual}*$F{penjualan_detail_qty}]]></variableExpression>
+	</variable>
+	<variable name="hargatot" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{buku_harga_jual}*$F{penjualan_detail_qty}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="215" y="0" width="125" height="36" uuid="9a30f900-5fcb-48aa-8d84-0695eb9772c5"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Toko Buku]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="212" y="36" width="131" height="20" uuid="32806735-9b5b-420d-824e-95edd7b4e11d"/>
+				<text><![CDATA[Jln.Cikeusik Cidahu No.73]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="55" width="555" height="1" uuid="72007769-b892-4176-9e21-0e4d090b315e"/>
+			</line>
+			<staticText>
+				<reportElement x="14" y="68" width="41" height="20" uuid="af1a3e8b-f277-42c3-afd9-c4c3ccc66b09"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Bulan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="68" width="194" height="20" uuid="2ed94428-7a70-4e28-9426-5a4b88922436"/>
+				<textElement textAlignment="Center">
+					<font size="14" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Laporan -Pemasukan Bulanan]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="71" y="68" width="100" height="20" uuid="6a14b310-4605-4a84-8d4f-32c0108084eb"/>
+				<textFieldExpression><![CDATA[$F{tgl}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="15" width="41" height="20" uuid="129c28e6-feee-4db0-b145-524d7340f7b0"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="15" width="89" height="20" uuid="f31e5488-d658-4ae8-acf8-f4e10f018fbf"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Judul]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="199" y="15" width="100" height="20" uuid="9c1d7063-63e0-45f2-8810-bf01a5bfc47e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Harga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="15" width="30" height="20" uuid="016b3dae-8bda-4f83-9074-495f6d0ef7ee"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="15" width="100" height="20" uuid="43bd435f-a2b8-4737-9e1b-e9efaf07f377"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Harga Total]]></text>
+			</staticText>
+			<line>
+				<reportElement x="14" y="14" width="504" height="1" uuid="f9f8b377-f8b3-476b-b779-c2671565ea77"/>
+			</line>
+			<line>
+				<reportElement x="518" y="15" width="1" height="50" uuid="6a271056-87f8-4eb6-a5fe-da933778ee5b"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="14" y="10" width="41" height="20" uuid="06c1bd3f-3c90-4ff4-a7f5-3b8e973d6653"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{penjualan_nota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="10" width="89" height="20" uuid="9e779434-20d7-4611-afa2-ec80b3e54586"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{buku_judul}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="10" width="100" height="20" uuid="8ffd6ec3-5eb0-4f87-bc1d-05d9cfb15278"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{buku_harga_jual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="327" y="10" width="24" height="20" uuid="e70ea8da-957c-4a94-a405-cbbb79ca4031"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{penjualan_detail_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="10" width="100" height="20" uuid="1b827790-86db-4098-ba5f-1166214acc52"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{tot}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="368" y="13" width="50" height="20" uuid="a1e43eae-0acb-4ba9-9680-168e53217c51"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="436" y="13" width="100" height="20" uuid="665bfbc3-5455-4fce-a4a1-aa7a82cf2852"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{hargatot}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>
